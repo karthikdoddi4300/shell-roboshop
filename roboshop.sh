@@ -9,7 +9,7 @@ do
         --instance-type t3.micro \
         --security-group-ids $SGID \
         --key-name karthikkeypai \
-        --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=catalogue}]'\
+        --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$instance}]"\
         --query 'Instances[0].InstanceId' \
         --output text 
         )
@@ -24,7 +24,7 @@ do
         IP=$(
             aws ec2 describe-instances\
             --instance-ids $INSTANCE_ID\
-            --query 'Reservations[].Instances[].PublicIpAddress' \
+            --query 'Reservations[].Instances[].PrivateIpAddress' \
             --output text
           )
     fi
